@@ -15,6 +15,7 @@ class JsBridge(QtCore.QObject):
         print("收到js传过来的值：%s" % param)
         # py_call_js
         self.web_view.page().runJavaScript('alert("python_call_js alert: hello,world！");')
+        self.web_view.page().runJavaScript('pyCallJqueryFunc("msgDiv", "你好啊");')
         self.web_view.page().runJavaScript('pyCalljs("python_call_js pyCalljs: hello,hello！");', self.js_callback)
         return '我是python返回给js的值'
 
