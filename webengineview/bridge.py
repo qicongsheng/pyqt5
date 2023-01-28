@@ -1,10 +1,9 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-from PyQt5 import QtCore
-from PyQt5.QtCore import pyqtSlot
+from PyQt5.QtCore import pyqtSlot, QObject
 
 
-class JsBridge(QtCore.QObject):
+class JsBridge(QObject):
 
     def __init__(self, web_view):
         super(JsBridge, self).__init__()
