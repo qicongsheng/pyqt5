@@ -3,4 +3,4 @@ python3.9
 
 pyinstaller --noconsole main.py
 
-nuitka --standalone --show-memory --show-progress --show-scons --nofollow-imports -follow-import-to=need --plugin-enable=pyqt5 --include-qt-plugins=all --include-qt-plugins=sensible,styles  --output-dir=out  main.py
+nuitka --standalone --show-memory --show-progress --show-scons --nofollow-imports --follow-import-to=need --windows-disable-console --plugin-enable=pyqt5 --include-qt-plugins=all --include-qt-plugins=sensible,styles  --output-dir=out  main.py
