@@ -9,7 +9,7 @@ from PyQt5.QtWidgets import QMainWindow, QVBoxLayout, QWidget, QDesktopWidget
 
 
 class UIWindow(QMainWindow):
-    def __init__(self):
+    def __init__(self, title=None):
         super().__init__()
         self.webView = QWebEngineView()
         self.webView.settings().setAttribute(QtWebEngineWidgets.QWebEngineSettings.JavascriptEnabled, True)
@@ -21,7 +21,7 @@ class UIWindow(QMainWindow):
         widget.setLayout(layout)
         self.setCentralWidget(widget)
         self.resize(900, 600)
-        self.setWindowTitle('Qics QWebEngineView')
+        self.setWindowTitle(title)
         qr = self.frameGeometry()
         cp = QDesktopWidget().availableGeometry().center()
         qr.moveCenter(cp)

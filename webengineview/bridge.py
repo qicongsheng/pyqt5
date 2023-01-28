@@ -1,36 +1,23 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 from PyQt5 import QtCore
-from PyQt5.QtWidgets import QMessageBox
-from PyQt5.QtCore import QObject, pyqtSlot, QUrl
+from PyQt5.QtCore import pyqtSlot
 
 
 class JsBridge(QtCore.QObject):
-    def __int__(self, web_view):
+
+    def __init__(self, web_view):
+        super(JsBridge, self).__init__()
         self.web_view = web_view
 
-    # pyqtSlot，网络上大多将其翻译为槽。作用是接收网页发起的信号
-    @pyqtSlot()
-    def changeJsValueByPy(self):
-        self.web_view.page().runJavaScript('defaulitValue="value from python"')
-
-    # 注意pyqtSlot用于把该函数暴露给js可以调用
-    @pyqtSlot()
-    def callPy2JsByJs1(self):
-        print('中间代理')
-        self.pyCalljs('py呼叫js，收到请回答')
-
-    def pyCalljs(self, msg):
-        self.web_view.page().runJavaScript("pyCalljs('%s')" % msg, self.js_callback)
-        print(msg)  # 查看参数
+    @pyqtSlot(str, result=str)
+    def js_call_py(self, param):
+        print("收到js传过来的值：%s" % param)
+        # py_call_js
+        self.web_view.page().runJavaScript('alert("python_call_js alert: hello,world！");')
+        self.web_view.page().runJavaScript('pyCalljs("python_call_js pyCalljs: hello,hello！");', self.js_callback)
+        return '我是python返回给js的值'
 
     # 回调函数，接收js返回的值
     def js_callback(self, result):
-        QMessageBox.information(None, "提示", "来自js回复：{}".format(result))
-        print(result)
-
-    # 注意pyqtSlot用于把该函数暴露给js可以调用 result=str返回的值string
-    @pyqtSlot(str, result=str)
-    def jsCallpy(self, text):
-        QMessageBox.information(None, "提示", "来自js消息：{}".format(text))
-        return 'js,py收到消息'
+        print("js_callback: " + result)
