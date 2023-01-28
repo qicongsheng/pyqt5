@@ -7,7 +7,7 @@ import sys
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-    ui_window = UIWindow(title='qics Qt5 Demo', html="/assets/html/bootstrap.html")
+    ui_window = UIWindow(title='qics Qt5 Demo', html="/assets/html/index.html")
     js_bridge = JsBridge(ui_window.webView)
     ui_window.channel.registerObject('JsBridge', js_bridge)
     sys.exit(app.exec_())
