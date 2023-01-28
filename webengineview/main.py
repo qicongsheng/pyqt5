@@ -9,5 +9,5 @@ if __name__ == '__main__':
     app = QApplication(sys.argv)
     ui_window = UIWindow()
     js_bridge = JsBridge(ui_window.webView)
-    ui_window.channel.registerObject('Bridge', JsBridge())
+    ui_window.channel.registerObject('qicsBridge', js_bridge)
     sys.exit(app.exec_())

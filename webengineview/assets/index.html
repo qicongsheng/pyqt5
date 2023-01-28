@@ -48,16 +48,16 @@
 </div>
 
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
-        //把对象赋值到JS中
-        new QWebChannel(qt.webChannelTransport, function(channel) {
-            window.pyjs = channel.objects.Bridge;
+    //把对象赋值到JS中
+    document.addEventListener("DOMContentLoaded", function () {
+        new QWebChannel( qt.webChannelTransport, function(channel) {
+            window.pyjs = channel.objects.qicsBridge;
         });
     });
 
-    //调用python给js变量赋值 py2js
-    function changeJsValueByPy() {
-        pyjs.changeJsValueByPy();
+    // call python
+    function callPyFunc() {
+        pyjs.callPyFunc('testValue');
     }
 
     //等待接收python传来的数据 py2js
