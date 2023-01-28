@@ -5,7 +5,7 @@ from PyQt5 import QtWebEngineWidgets
 from PyQt5.QtCore import QDir
 from PyQt5.QtWebChannel import QWebChannel
 from PyQt5.QtWebEngineWidgets import QWebEngineView
-from PyQt5.QtWidgets import *
+from PyQt5.QtWidgets import QMainWindow, QVBoxLayout, QWidget, QDesktopWidget
 from bridge import JsBridge
 
 
