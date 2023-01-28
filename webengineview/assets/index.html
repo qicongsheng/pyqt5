@@ -1,1 +1,89 @@
-hello
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">
+    <title>Python与Js通信</title>
+    <script src="qwebchannel.js"></script>
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            width: 100%;
+        }
+
+        .input-card {
+            padding: 2rem;
+        }
+
+        .input-item{
+            display: flex;
+            justify-content: center;
+        }
+
+        .btn{
+            width: 50%;
+            margin-top: 1rem;
+        }
+
+        .btn:last-child{
+            margin-left: 1rem;
+        }
+
+    </style>
+</head>
+<body>
+<div class="input-card">
+    <h4>控制按钮</h4>
+    <div class="input-item">
+        <input type="button" class="btn" value="调用py改变js的变量值" onclick="changeJsValueByPy()" />
+        <input type="button" class="btn" value="展示js变量值" onclick="showValue()" />
+    </div>
+    <div class="input-item">
+        <input type="button" class="btn" value="js调用py，接收返回" onclick="jsCallPy()" />
+        <input type="button" class="btn" value="py调用js，接收返回" onclick="callPy2JsByJs()" />
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        //把对象赋值到JS中
+        new QWebChannel(qt.webChannelTransport, function(channel) {
+            window.pyjs = channel.objects.Bridge;
+        });
+    });
+
+    //调用python给js变量赋值 py2js
+    function changeJsValueByPy() {
+        pyjs.changeJsValueByPy();
+    }
+
+    //等待接收python传来的数据 py2js
+    var defaulitValue = null;
+    //展示值
+    function showValue() {
+        alert(defaulitValue);
+    }
+
+    //向python传值，并接收返回
+    function jsCallPy() {
+        pyjs.jsCallpy('js呼叫py，收到请回答', function(result) {
+            alert("来自py回复：" +result);
+        });
+    }
+
+    //调用python方法，给js传值
+    function callPy2JsByJs() {
+        pyjs.callPy2JsByJs1();
+    }
+
+    //py调用js方法并返回值
+    function pyCalljs(msg) {
+        alert("来自py消息：" + msg);
+        return 'py,js收到'
+    }
+</script>
+</body>
+</html>

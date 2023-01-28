@@ -2,9 +2,11 @@
 # -*- coding: utf-8 -*-
 from PyQt5.QtWidgets import QApplication
 from ui import UIWindow
+from bridge import JsBridge
 import sys
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-    m = UIWindow()
+    ui_window = UIWindow()
+    ui_window.channel.registerObject('Bridge', JsBridge())
     sys.exit(app.exec_())
