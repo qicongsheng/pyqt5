@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <script src="../js/qwebchannel.js"></script>
+</head>
+<body>
+<div class="input-card">
+    <input type="button" class="btn" value="js调用py，并接收返回" onclick="jsCallPy()" />
+</div>
+
+<script>
+    // 初始化pyjs对象
+    document.addEventListener("DOMContentLoaded", function () {
+        new QWebChannel( qt.webChannelTransport, function(channel) {
+            window.pyjs = channel.objects.JsBridge;
+        });
+    });
+
+    // 向python传值，并接收返回
+    function jsCallPy() {
+        pyjs.js_call_py('我是js传给python的值', function(result) {
+            alert("JS Alert:" + result);
+        });
+    }
+
+    // py调用js方法并返回值
+    function pyCalljs(msg) {
+        alert("JS Alert: py调用js：" + msg);
+        return 'js收到：' + msg
+    }
+</script>
+</body>
+</html>

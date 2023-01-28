@@ -9,7 +9,7 @@ from PyQt5.QtWidgets import QMainWindow, QVBoxLayout, QWidget, QDesktopWidget
 
 
 class UIWindow(QMainWindow):
-    def __init__(self, title=None):
+    def __init__(self, title=None, html=None):
         super().__init__()
         self.webView = QWebEngineView()
         self.webView.settings().setAttribute(QtWebEngineWidgets.QWebEngineSettings.JavascriptEnabled, True)
@@ -27,7 +27,7 @@ class UIWindow(QMainWindow):
         qr.moveCenter(cp)
         self.move(qr.topLeft())
         self.show()
-        html_path = QtCore.QUrl.fromLocalFile(QDir.currentPath() + "/assets/index.html")
+        html_path = QtCore.QUrl.fromLocalFile(QDir.currentPath() + html)
         self.webView.load(html_path)
 
 
